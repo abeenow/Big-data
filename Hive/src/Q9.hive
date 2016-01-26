@@ -1,0 +1,15 @@
+-- Use the schema
+USE axs143632;
+
+-- Add jar to class path
+ADD JAR UDF.jar;
+
+-- Assign function name
+CREATE TEMPORARY FUNCTION FORMAT_CAT AS 'FORMAT_CAT';
+
+SELECT
+business_id,
+full_address,
+FORMAT_CAT(categories)
+FROM BUSINESS_DATA
+LIMIT 10;

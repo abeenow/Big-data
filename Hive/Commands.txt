@@ -1,0 +1,5 @@
+* hive -f Q5.hive -d review_file=../../Data/review2.csv -d business_file=../../Data/business2.csv
+* hive -f Q6.hive
+* hive -f Q7.hive -d business_data_dir=../../Data
+* hive -f Q8.hive
+* hive -f Q9.hive

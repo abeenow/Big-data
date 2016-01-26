@@ -1,0 +1,32 @@
+-- Use the schema
+USE axs143632;
+
+-- Create table for business_2013
+CREATE TABLE IF NOT EXISTS BUSINESS_2013
+(
+ business_id STRING ,
+ full_address STRING ,
+ longitude STRING
+);
+
+-- Create table for business_2014
+CREATE TABLE IF NOT EXISTS BUSINESS_2014
+(
+ business_id STRING ,
+ full_address STRING ,
+ longitude STRING
+);
+
+-- Create table for business_2015
+CREATE TABLE IF NOT EXISTS BUSINESS_2015
+(
+ business_id STRING ,
+ full_address STRING ,
+ longitude STRING
+);
+
+-- Multi insert into the created tables
+FROM BUSINESS_DATA_PARTITIONED
+INSERT OVERWRITE TABLE BUSINESS_2013 SELECT business_id,full_address,longitude WHERE year=2013 
+INSERT OVERWRITE TABLE BUSINESS_2014 SELECT business_id,full_address,longitude WHERE year=2014
+INSERT OVERWRITE TABLE BUSINESS_2015 SELECT business_id,full_address,longitude WHERE year=2015;

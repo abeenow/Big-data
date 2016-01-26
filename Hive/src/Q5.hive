@@ -1,0 +1,83 @@
+-- Create the schema
+CREATE SCHEMA IF NOT EXISTS axs143632;
+
+-- Use the schema
+USE axs143632;
+
+-- Create table command
+CREATE TABLE IF NOT EXISTS REVIEW_DATA
+(
+ review_id STRING ,
+ text STRING ,
+ business_id STRING ,
+ full_address STRING ,
+ schools STRING ,
+ longitude STRING ,
+ average_stars STRING ,
+ date STRING ,
+ user_id STRING ,
+ open STRING ,
+ categories STRING ,
+ photo_url STRING ,
+ city STRING ,
+ review_count STRING ,
+ name STRING ,
+ neighborhoods STRING ,
+ url STRING ,
+ votes_cool STRING ,
+ votes_funny STRING ,
+ state STRING ,
+ stars FLOAT ,
+ latitude STRING ,
+ type STRING ,
+ votes_useful STRING
+ )
+ ROW FORMAT DELIMITED FIELDS TERMINATED BY '^'
+ STORED AS TEXTFILE;
+ 
+ -- Load data into the Table from local machine
+ LOAD DATA LOCAL INPATH '${review_file}' OVERWRITE INTO TABLE REVIEW_DATA;
+
+-- Create table command 
+CREATE TABLE IF NOT EXISTS BUSINESS_DATA
+(
+ review_id STRING ,
+ text STRING ,
+ business_id STRING ,
+ full_address STRING ,
+ schools STRING ,
+ longitude STRING ,
+ average_stars STRING ,
+ date STRING ,
+ user_id STRING ,
+ open STRING ,
+ categories STRING ,
+ photo_url STRING ,
+ city STRING ,
+ review_count STRING ,
+ name STRING ,
+ neighborhoods STRING ,
+ url STRING ,
+ votes_cool STRING ,
+ votes_funny STRING ,
+ state STRING ,
+ stars FLOAT ,
+ latitude STRING ,
+ type STRING ,
+ votes_useful STRING
+ )
+ ROW FORMAT DELIMITED FIELDS TERMINATED BY '^'
+ STORED AS TEXTFILE;
+ 
+ -- Load data into the Table from local machine
+ LOAD DATA LOCAL INPATH '${business_file}' OVERWRITE INTO TABLE BUSINESS_DATA;
+ 
+ -- Query the Data Set
+ USE axs143632;
+ SELECT
+ BUSINESS_DATA.business_id,
+ BUSINESS_DATA.full_address,
+ AVG(REVIEW_DATA.stars) AS Rating
+ FROM BUSINESS_DATA JOIN REVIEW_DATA ON (BUSINESS_DATA.Business_id = REVIEW_DATA.Business_id)
+ GROUP BY BUSINESS_DATA.business_id,BUSINESS_DATA.full_address
+ ORDER BY Rating DESC LIMIT 10;

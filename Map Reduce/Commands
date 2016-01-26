@@ -1,0 +1,39 @@
+Shell:
+
+1. awk -F"::" '{if ($23 == "business" || $23 == "review" || $23 == "user") print $23}' data.csv | uniq -c
+2. awk -F"::" '{if ($23 == "business") print $3"->"$4}' data.csv | grep -i 'palo'
+
+
+Hadoop Jar file execution
+1. nohup hadoop jar $HOME/bigdata/HW1/qn1/EntityCount.jar EntityCount /allyelpdata /$USER/run1 &
+2. nohup hadoop jar $HOME/bigdata/HW1/qn2/FilterCity.jar FilterCity /allyelpdata /$USER/run2 &
+3. nohup hadoop jar $HOME/bigdata/HW1/qn3/TopTenBusiness.jar TopTenBusiness /allyelpdata /$USER/run3 &
+4. nohup hadoop jar $HOME/bigdata/HW1/qn4/TopTenBusinessDetails.jar TopTenBusinessDetails -D business.data=/yelpbusiness/business.csv -D review.data=/yelpreview/review.csv /$USER/run4 &
+5. nohup time hadoop jar UserDetails.jar UserDetails  -D business.data=/yelpdata/data.csv /yelpdata/data.csv /$USER/run5 &
+
+
+
+
+for i in `hdfs dfs -ls /$USER/ | grep -iv 'items'|awk -F" " '{print $NF"/part-r-00000"}'`
+do
+echo "Filename -> $i"
+hdfs dfs -cat $i
+done
+
+
+
+
+
+
+
+for i in `ls -l | grep "^d" | awk -F' ' '{print $NF}'`
+do
+
+cd $i
+name=`ls -1| cut -d'.' -f1`
+hadoop com.sun.tools.javac.Main $name.java
+jar -cvf $name.jar *.class
+rm -rf *.class
+
+done
+

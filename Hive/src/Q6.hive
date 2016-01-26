@@ -1,0 +1,7 @@
+ -- Query the Data Set
+ USE axs143632;
+ SELECT
+ business_id,
+ categories
+ FROM BUSINESS_DATA
+ WHERE UPPER(full_address) like '%STANFORD%';

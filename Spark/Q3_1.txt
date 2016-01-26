@@ -1,0 +1,13 @@
+mahout spark-itemsimilarity --input /allyelpdata/review.csv --output /axs143632/mahout --inDelim "::" --filter1 4 --filterColumn 20 --itemIDColumn 2 --rowIDColumn 8 --maxSimilaritiesPerItem 5
+
+Explanation:
+
+mahout spark-itemsimilarity \
+--input /allyelpdata/review.csv \ # HDFS input path
+--output /axs143632/mahout \ # HDFS Output path
+--inDelim "::" \ # The file delimiter 
+--filterColumn 20 \ # The Column to filter
+--filter1 4 \ # The value of the column to filter (In our case it's 4) 
+--itemIDColumn 2 \ # The Column consisting the business_id 
+--rowIDColumn 8 \ # The user_id column
+--maxSimilaritiesPerItem 5 # The maximum number of similair items for a particular business_id

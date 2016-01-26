@@ -1,0 +1,7 @@
+* pig -f $HOME/bigdata/HW2/pig/Q1.pig -p business_file=/SUMMER2015_HW2_PIG/business2.csv -p review_file=/SUMMER2015_HW2_PIG/review2.csv -p output_location=/$USER/pig1
+
+* pig -f $HOME/bigdata/HW2/pig/Q2.pig -p business_file=/SUMMER2015_HW2_PIG/business2.csv -p review_file=/SUMMER2015_HW2_PIG/review2.csv -p output_location=/$USER/pig2
+
+* pig -f $HOME/bigdata/HW2/pig/Q3.pig -p business_file=/SUMMER2015_HW2_PIG/business2.csv -p review_file=/SUMMER2015_HW2_PIG/review2.csv -p output_location=/$USER/pig3
+
+* pig -f $HOME/bigdata/HW2/pig/Q4.pig -p business_file=/SUMMER2015_HW2_PIG/business2.csv -p output_location=/$USER/pig4

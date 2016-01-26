@@ -1,0 +1,45 @@
+-- Use the schema
+USE axs143632;
+
+-- Create table command 
+CREATE TABLE IF NOT EXISTS BUSINESS_DATA_PARTITIONED
+(
+ review_id STRING ,
+ text STRING ,
+ business_id STRING ,
+ full_address STRING ,
+ schools STRING ,
+ longitude STRING ,
+ average_stars STRING ,
+ date STRING ,
+ user_id STRING ,
+ open STRING ,
+ categories STRING ,
+ photo_url STRING ,
+ city STRING ,
+ review_count STRING ,
+ name STRING ,
+ neighborhoods STRING ,
+ url STRING ,
+ votes_cool STRING ,
+ votes_funny STRING ,
+ state STRING ,
+ stars FLOAT ,
+ latitude STRING ,
+ type STRING ,
+ votes_useful STRING
+ )
+ PARTITIONED BY (year INT)
+ ROW FORMAT DELIMITED FIELDS TERMINATED BY '^'
+ STORED AS TEXTFILE;
+ 
+-- Load data into the Table from local machine
+ LOAD DATA LOCAL INPATH '${business_data_dir}/business2013.csv' OVERWRITE INTO TABLE BUSINESS_DATA_PARTITIONED PARTITION (year=2013);
+ LOAD DATA LOCAL INPATH '${business_data_dir}/business2014.csv' OVERWRITE INTO TABLE BUSINESS_DATA_PARTITIONED PARTITION (year=2014);
+ LOAD DATA LOCAL INPATH '${business_data_dir}/business2015.csv' OVERWRITE INTO TABLE BUSINESS_DATA_PARTITIONED PARTITION (year=2015);
+
+ -- Query the Data Set
+ USE axs143632;
+ SELECT *
+ FROM BUSINESS_DATA_PARTITIONED 
+ WHERE YEAR=2013;
